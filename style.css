@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
+header{
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+header img{
+    height: 40px;
+    width: 100px;
+}
+
+.gallery{
+    display: flex;
+    justify-content: flex-end;   /* moves the items to the end of the flex that is right */
+    
+}
+
+.gallery .gallery-grid{
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(4, 180px); /* column anusar milauna-- 4ta column*/
+
+}
+
+.gallery .gallery-grid img{
+
+}
