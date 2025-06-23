@@ -1,16 +1,16 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: monospace;
+    font-family: sans-serif;
 }
 
 header{
     padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+   
 }
 
 header img{
-    height: 40px;
+    height: 50px;
     width: 100px;
 }
 
@@ -22,11 +22,62 @@ header img{
 
 .gallery .gallery-grid{
     display: grid;
-    gap: 15px;
+    gap: 25px;
     grid-template-columns: repeat(4, 180px); /* column anusar milauna-- 4ta column*/
+    margin-right: 50px;
+    margin-top: 20px;
 
 }
 
 .gallery .gallery-grid img{
+    width: 180px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
 
+}
+.gallery .gallery-grid :nth-child(1){
+    margin-top: 20px;
+
+}
+.title{
+    margin: 100px;
+    margin-right: 150px;
+    max-width: 500px;
+    
+}
+
+.title h3{
+    font-size: 30px;
+    
+}
+
+.title p{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top: 10px;
+    text-align: justify;
+   
+}
+
+.card-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 12px;
+        
+}
+.card{
+    width: 444px;
+
+}
+
+
+.card .cardimg img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;  */
+    gap: 50px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
