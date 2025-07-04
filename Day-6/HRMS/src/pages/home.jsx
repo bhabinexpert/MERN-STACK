@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import TopBar from "../components/topbar";
+import TopBar from "../components/home/topbar";
 import Sidebar from "../components/home/siderbar";
 
 export default function Home(){
