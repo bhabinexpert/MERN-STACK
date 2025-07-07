@@ -20,16 +20,17 @@ export default function Employee() {
         </Button>
       </div>
       <SearchSelect/>
-        {employees.map((items, index)=>{
+        {employees.map(({name, email, departments, position, status, joinDate, salary})=>{ //destructuring the data from employess
+          // let [ name, email, departments, position, status, joinDate, salary] = items;
           return(
             <EmployeeCard
-            name = {items.name}
-            email = {items.email}
-            departments = {items.departments}
-            position = {items.position}
-            status = {items.status}
-            joinDate={items.joinDate}
-            salary={items.salary}      
+            name = {name}
+            email = {email}
+            departments = {departments}
+            position = {position}
+            status = {status}
+            joinDate={joinDate}
+            salary={salary}      
             
             />
 

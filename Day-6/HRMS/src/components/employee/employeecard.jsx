@@ -1,6 +1,4 @@
 import { FaUser, FaEye, FaEdit, FaTrash } from "react-icons/fa";
-// import employees from "../employee/employee"
-
 export default function EmployeeCard({name, email, departments,position,status, joinDate, salary}) {
   return (
     <div className="mt-5">
