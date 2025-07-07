@@ -1,0 +1,15 @@
+{
+  "employees": [
+    {
+      "id": "b4c9",
+      "name": "Bhabin",
+      "email": "bhabindulal46@gmail.com",
+      "department": "engineering",
+      "designation": "midlevel",
+      "userType": "employee",
+      "salary": "60000",
+      "password": "helloworld",
+      "date": "2025-07-07"
+    }
+  ]
+}

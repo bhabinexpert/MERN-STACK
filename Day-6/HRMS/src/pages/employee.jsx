@@ -3,8 +3,11 @@ import Button from "../components/employee/buttons";
 import EmployeeCard from "../components/employee/employeeCard";
 import SearchSelect from "../components/employee/searchSelect";
 import employees from "../components/employee/employee"
+import { useState } from "react";
+import EmployeeForm from "../components/employee/employeeForm";
 
 export default function Employee() {
+  const [modelform, setModelForm] = useState(false)
   return (
     <>
       <div className="flex justify-between items-center pl-2 pr-2 text-gray-500">
@@ -15,34 +18,29 @@ export default function Employee() {
           </p>
         </div>
 
-        <Button icon={<FaPlus />} type="button">
-          Add Employee
+        <Button 
+        onClick ={() => setModelForm(true)}
+        icon={<FaPlus />} 
+        type="button">
+        Add Employee
         </Button>
       </div>
       <SearchSelect/>
-        {employees.map(({name, email, departments, position, status, joinDate, salary})=>{ //destructuring the data from employess
-          // let [ name, email, departments, position, status, joinDate, salary] = items;
-          return(
-            <EmployeeCard
-            name = {name}
-            email = {email}
-            departments = {departments}
-            position = {position}
-            status = {status}
-            joinDate={joinDate}
-            salary={salary}      
-            
-            />
-
-          )
-        })}
-      
-      
-      
-
-      
-
-     
-    </>
+        
+            <EmployeeCard/>
+         {modelform && (
+        <div className="fixed inset-0 bg-transparent bg-opacity-10 backdrop-brightness-30 flex items-center justify-center">
+          <div className="bg-white rounded-md shadow-xl w-full max-w-md relative">
+            <Button
+              onClick={() => setModelForm(false)}
+              className="absolute top-2 right-2 text-xs bg-gray-200 px-2 py-1 rounded cursor-pointer"
+            >
+              ✕
+            </Button>
+            <EmployeeForm mode="add" />
+          </div>
+        </div>
+      )}   
+</>
   );
 }
