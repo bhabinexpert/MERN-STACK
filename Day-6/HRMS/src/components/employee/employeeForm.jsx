@@ -1,8 +1,8 @@
 import Button from "./buttons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 
-export default function EmployeeForm() {
+export default function EmployeeForm({setEmployess, setModelForm,editEmployee,setEditEmployee}) {
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [department, setDepartment] = useState("");
@@ -11,6 +11,17 @@ const [userType, setUserType] = useState("");
 const [salary, setSalary] = useState("");
 const [password, setpassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
+useEffect (()=>{
+  if(editEmployee){
+    setName(editEmployee.name)
+    setEmail(editEmployee.email)
+    setDepartment(editEmployee.department)
+    setDesignation(editEmployee.designation)
+    setUserType(editEmployee.userType)
+    setSalary(editEmployee.salary)
+  }
+},[editEmployee])
+
 const handleSubmit = async (e)=>{
     e.preventDefault();
     if (
@@ -34,24 +45,42 @@ const handleSubmit = async (e)=>{
             alert("Please enter a valid email address")
             return
         }
-    const newEmployee = {
+    const employeeData = {
         name, email, department, designation, userType, salary, password,
         date: new Date().toISOString().split("T")[0] 
     }
 
     const token = localStorage.getItem("token")    
     try{
-        const response = await axios.post(
-            "http://localhost:5000/employees",
-            newEmployee,
+      if(editEmployee){
+        const response = await axios.put(
+            `http://localhost:5000/employees/${editEmployee.id}`,
+            employeeData,
             {
                 headers:{
                     Authorization: `Bearer ${token}`,
                 },
             }
         )
+         setEmployess((prev)=>
+          prev.map((emp) => (emp.id === editEmployee.id ? response.data : emp))
+        )
+        alert("Employee updated Sucessfully")
+        setEditEmployee(null)
+        }else{
+           const response = await axios.post(
+            "http://localhost:5000/employees",
+            employeeData,
+            {
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
+         setModelForm(false)
         if(response.status === 201){
-            alert("Employee added Successfully")
+          alert("Employee added Successfully")
+        }
             setName("")
             setEmail("")
             setDepartment("")
@@ -198,7 +227,9 @@ const handleSubmit = async (e)=>{
         </div>
 
         <div className="pt-2">
-          <Button type="submit">Add Employee</Button>
+          <Button type="submit">
+            {editEmployee? "Update Employee": "Add Employee"}
+            </Button>
         </div>
       </form>
     </div>

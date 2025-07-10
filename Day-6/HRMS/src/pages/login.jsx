@@ -1,8 +1,10 @@
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 export default function LoginForm(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const navigate = useNavigate()
+    
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!email || ! password){
@@ -40,6 +42,7 @@ export default function LoginForm(){
         .then((data)=>{
             localStorage.setItem("token",data.token)
             alert("Login Succeed")
+            navigate("/home")
             setEmail('')
             setPassword('')
         })

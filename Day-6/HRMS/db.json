@@ -10,6 +10,28 @@
       "salary": "60000",
       "password": "helloworld",
       "date": "2025-07-07"
+    },
+    {
+      "id": "a2cd",
+      "name": "vabin",
+      "email": "bhabin11@gmial.com",
+      "department": "engineering",
+      "designation": "midlevel",
+      "userType": "manager",
+      "salary": "56000",
+      "password": "1234",
+      "date": "2025-07-10"
+    },
+    {
+      "id": "fc80",
+      "name": "bd tilla",
+      "email": "bdtilla@tilla.com",
+      "department": "marketing",
+      "designation": "intern",
+      "userType": "employee",
+      "salary": "1000",
+      "password": "1234",
+      "date": "2025-07-10"
     }
   ]
 }

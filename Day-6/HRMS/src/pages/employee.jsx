@@ -3,11 +3,31 @@ import Button from "../components/employee/buttons";
 import EmployeeCard from "../components/employee/employeeCard";
 import SearchSelect from "../components/employee/searchSelect";
 import employees from "../components/employee/employee"
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import EmployeeForm from "../components/employee/employeeForm";
+import axios from "axios";
 
 export default function Employee() {
   const [modelform, setModelForm] = useState(false)
+  const [employees, setEmployees] = useState([])
+  const [editEmployee, setEditEmployee] = useState(null)
+  const fetchEmployees= async () => {
+    const token = localStorage.getItem("token");
+    try{
+      const res = await axios.get("http://localhost:5000/employees",{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setEmployees(res.data);
+  } catch (err) {
+    console.error("failed to fetch employees",err);
+  }
+};
+useEffect(()=>{
+  fetchEmployees();
+}, []); //dependency array
+
   return (
     <>
       <div className="flex justify-between items-center pl-2 pr-2 text-gray-500">
@@ -19,7 +39,10 @@ export default function Employee() {
         </div>
 
         <Button 
-        onClick ={() => setModelForm(true)}
+        onClick ={() => {setModelForm(true)
+          setEditEmployee(null)
+        }}
+        
         icon={<FaPlus />} 
         type="button">
         Add Employee
@@ -27,7 +50,10 @@ export default function Employee() {
       </div>
       <SearchSelect/>
         
-            <EmployeeCard/>
+            <EmployeeCard employees = {employees}
+            setEditEmployee= {setEditEmployee} 
+            setModalForm = {setModelForm}/>
+            
          {modelform && (
         <div className="fixed inset-0 bg-transparent bg-opacity-10 backdrop-brightness-30 flex items-center justify-center">
           <div className="bg-white rounded-md shadow-xl w-full max-w-md relative">
@@ -37,7 +63,13 @@ export default function Employee() {
             >
               ✕
             </Button>
-            <EmployeeForm mode="add" />
+            <EmployeeForm
+             setEmployees = {setEmployees}
+             setModelForm= {setModelForm}
+             editEmployee = {editEmployee}
+             setEditEmployee = {setEditEmployee}
+             />
+
           </div>
         </div>
       )}   
