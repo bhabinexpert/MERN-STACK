@@ -1,5 +1,5 @@
 import { FaUser, FaEye, FaEdit, FaTrash } from "react-icons/fa";
-export default function EmployeeCard({employees,setModalForm,setEditEmployee}) {
+export default function EmployeeCard({employees,setModalForm,setEditEmployee,handleDelete}) {
   console.log('employess:',employees)
   return (
     <div className="mt-5">
@@ -42,7 +42,12 @@ export default function EmployeeCard({employees,setModalForm,setEditEmployee}) {
                 setModalForm(true)
               }}
               className="cursor-pointer hover:text-green-500" />
-              <FaTrash className="cursor-pointer hover:text-red-500" />
+              <FaTrash 
+              onClick = {()=>{
+                handleDelete(emp.id)
+                
+              }}
+              className="cursor-pointer hover:text-red-500" />
             </td>
           </tr>
 )}

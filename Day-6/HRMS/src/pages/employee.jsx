@@ -28,6 +28,24 @@ useEffect(()=>{
   fetchEmployees();
 }, []); //dependency array
 
+const handleDelete = async (id) =>{
+  const confirmDelete = window.confirm("Do you want to delete the employee?")
+  if (!confirmDelete) return
+  const token = localStorage.getItem("token")
+  try{
+    await axios.delete(`http://localhost:5000/employees/${id}`,{
+      header:{
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    setEmployees((preview)=> preview.filter((emp)=>emp.id !==id))
+    alert("Employee deleted Successfully")
+  }catch (error){
+    console.error("Error deleting the employee", error)
+    alert("Something went wrong while deleting the employee")
+  }
+}
+
   return (
     <>
       <div className="flex justify-between items-center pl-2 pr-2 text-gray-500">
@@ -52,7 +70,8 @@ useEffect(()=>{
         
             <EmployeeCard employees = {employees}
             setEditEmployee= {setEditEmployee} 
-            setModalForm = {setModelForm}/>
+            setModalForm = {setModelForm}
+            handleDelete={handleDelete} />
             
          {modelform && (
         <div className="fixed inset-0 bg-transparent bg-opacity-10 backdrop-brightness-30 flex items-center justify-center">

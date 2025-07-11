@@ -1,15 +1,15 @@
 {
   "employees": [
     {
-      "id": "b4c9",
       "name": "Bhabin",
       "email": "bhabindulal46@gmail.com",
       "department": "engineering",
-      "designation": "midlevel",
-      "userType": "employee",
-      "salary": "60000",
-      "password": "helloworld",
-      "date": "2025-07-07"
+      "designation": "senior",
+      "userType": "manager",
+      "salary": "600000",
+      "password": "1234",
+      "date": "2025-07-11",
+      "id": "b4c9"
     },
     {
       "id": "a2cd",
@@ -19,17 +19,6 @@
       "designation": "midlevel",
       "userType": "manager",
       "salary": "56000",
-      "password": "1234",
-      "date": "2025-07-10"
-    },
-    {
-      "id": "fc80",
-      "name": "bd tilla",
-      "email": "bdtilla@tilla.com",
-      "department": "marketing",
-      "designation": "intern",
-      "userType": "employee",
-      "salary": "1000",
       "password": "1234",
       "date": "2025-07-10"
     }
