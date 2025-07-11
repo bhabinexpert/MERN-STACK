@@ -33,7 +33,7 @@ const handleDelete = async (id) =>{
   if (!confirmDelete) return
   const token = localStorage.getItem("token")
   try{
-    await axios.delete(`http://localhost:5000/employees/${id}`,{
+    await axios.delete(`http ://localhost:5000/employees/${id}`,{
       header:{
         Authorization: `Bearer ${token}`,
       },
