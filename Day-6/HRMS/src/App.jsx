@@ -4,6 +4,7 @@ import LoginForm from './pages/login'
 import Home from './pages/home'
 import Employee from './pages/employee'
 import Dashboard from './pages/dashboard'
+import ProtectedRoute from './components/utils/protectedRoute'
 
 
 
@@ -13,10 +14,16 @@ function App() {
     <>
     <Routes>
       <Route path = '/' element = {<LoginForm/>}></Route>
-      <Route path = 'home' element = {<Home/>}>
+        <Route
+        path='home'
+        element = {
+          <ProtectedRoute>
+            <Home/>
+          </ProtectedRoute>
+        }>
         <Route path = 'dashboard' element = {<Dashboard/>}></Route>
         <Route path = 'employee' element = {<Employee/>}></Route>
-      </Route>
+        </Route>
     </Routes>
       
     </>
