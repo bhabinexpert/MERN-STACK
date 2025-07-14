@@ -25,7 +25,7 @@ function App() {
         <Route path = 'dashboard' element = {<Dashboard/>}></Route>
         <Route path = 'employee' element = {
           <ProtectedRoute allowedRoles={["hr","manager","admin"]}>
-            <EmployeeForm/>
+            <Employee/>
           </ProtectedRoute>
         }></Route>
         </Route>

@@ -2,7 +2,6 @@ import { FaPlus } from "react-icons/fa";
 import Button from "../components/employee/buttons";
 import EmployeeCard from "../components/employee/employeeCard";
 import SearchSelect from "../components/employee/searchSelect";
-import employees from "../components/employee/employee"
 import { useState , useEffect} from "react";
 import EmployeeForm from "../components/employee/employeeForm";
 import axios from "axios";
@@ -60,14 +59,12 @@ const handleDelete = async (id) =>{
         onClick ={() => {setModelForm(true)
           setEditEmployee(null)
         }}
-        
         icon={<FaPlus />} 
         type="button">
         Add Employee
         </Button>
       </div>
       <SearchSelect/>
-        
             <EmployeeCard employees = {employees}
             setEditEmployee= {setEditEmployee} 
             setModalForm = {setModelForm}
