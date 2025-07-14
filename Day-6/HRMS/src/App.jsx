@@ -5,6 +5,7 @@ import Home from './pages/home'
 import Employee from './pages/employee'
 import Dashboard from './pages/dashboard'
 import ProtectedRoute from './components/utils/protectedRoute'
+import EmployeeForm from './components/employee/employeeForm'
 
 
 
@@ -22,7 +23,11 @@ function App() {
           </ProtectedRoute>
         }>
         <Route path = 'dashboard' element = {<Dashboard/>}></Route>
-        <Route path = 'employee' element = {<Employee/>}></Route>
+        <Route path = 'employee' element = {
+          <ProtectedRoute allowedRoles={["hr","manager","admin"]}>
+            <EmployeeForm/>
+          </ProtectedRoute>
+        }></Route>
         </Route>
     </Routes>
       
