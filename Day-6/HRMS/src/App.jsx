@@ -5,7 +5,8 @@ import Home from './pages/home'
 import Employee from './pages/employee'
 import Dashboard from './pages/dashboard'
 import ProtectedRoute from './components/utils/protectedRoute'
-import EmployeeForm from './components/employee/employeeForm'
+import Unauthorized from './components/utils/unAuthorized'
+
 
 
 
@@ -15,6 +16,7 @@ function App() {
     <>
     <Routes>
       <Route path = '/' element = {<LoginForm/>}></Route>
+      <Route path = "unauthorizedpage" element = {<Unauthorized/>}></Route>
         <Route
         path='home'
         element = {
@@ -26,6 +28,7 @@ function App() {
         <Route path = 'employee' element = {
           <ProtectedRoute allowedRoles={["hr","manager","admin"]}>
             <Employee/>
+            
           </ProtectedRoute>
         }></Route>
         </Route>
