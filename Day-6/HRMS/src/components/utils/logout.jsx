@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
-import React from 'react';
 export default function LogoutBUtton(){
     const navigate = useNavigate()
     const handleLogout = ()=>{
@@ -12,7 +11,6 @@ export default function LogoutBUtton(){
         <StyledWrapper>
       <button className="button" onClick={handleLogout}>
         <div className="blob1" />
-        <div className="blob2" />
         <div className="inner">Logout</div>
       </button>
     </StyledWrapper>
@@ -23,9 +21,10 @@ export default function LogoutBUtton(){
 
 const StyledWrapper = styled.div`
   .button {
+    margin-top: 0px;
     cursor: pointer;
-    font-size: 1rem;
-    border-radius: 16px;
+    font-size: 12px;
+    border-radius: 18px;
     border: none;
     padding: 2px;
     background: radial-gradient(circle 80px at 80% -10%, #ffffff, #181b1b);
@@ -33,9 +32,9 @@ const StyledWrapper = styled.div`
   }
   .blob1 {
     position: absolute;
-    width: 60px;
+    width: 80px;
     height: 100%;
-    border-radius: 16px;
+    border-radius: 18px;
     bottom: 0;
     left: 0;
     background: radial-gradient(
