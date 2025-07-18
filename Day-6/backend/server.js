@@ -1,6 +1,7 @@
 // entry file
 import express from 'express';
 import morgan from 'morgan';
+import mongoose from 'mongoose'; //mongoose fro db
 
 
 const app = express();
@@ -19,11 +20,19 @@ app.use((req, res, next)=>{
 app.use(morgan("dev"));
 
 
+
+
 //Creating the Route:
 app.get('/damak',(req, res)=>{
     res
     .status(200) // sabh thik chha 
     .json({message: "Welcome to damak!!"}) // message
+})
+
+mongoose.connect("mongodb+srv://bhabin:bbbb1234@cluster0.2rusqlf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(()=>{
+    console.log("Database connection established")
+}).catch((err)=>{
+    console.log("Database connection error; ", err)
 })
 
 app.listen(PORT, ()=>{
