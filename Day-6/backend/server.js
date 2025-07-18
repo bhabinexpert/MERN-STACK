@@ -2,11 +2,13 @@
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose'; //mongoose fro db
+import dotenv from 'dotenv';
+dotenv.config(); //configuring the dotenv file.
 
 
 const app = express();
 
-const PORT  = 8000;
+const PORT  = process.env.PORT;
 
 // MiddleWare:--- stops the execution here only
 app.use((req, res, next)=>{
@@ -29,7 +31,7 @@ app.get('/damak',(req, res)=>{
     .json({message: "Welcome to damak!!"}) // message
 })
 
-mongoose.connect("mongodb+srv://bhabin:bbbb1234@cluster0.2rusqlf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(()=>{
+mongoose.connect(process.env.MONGO_URL).then(()=>{
     console.log("Database connection established")
 }).catch((err)=>{
     console.log("Database connection error; ", err)
