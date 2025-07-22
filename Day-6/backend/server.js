@@ -4,7 +4,7 @@ import morgan from "morgan";
 import mongoose from "mongoose"; //mongoose fro db
 import dotenv from "dotenv";
 import cors from "cors";
-import { createEmployee } from "./controllers/employee.controller.js";
+import { createEmployee, getAllEmployees, getEmployeeByID } from "./controllers/employee.controller.js";
 dotenv.config(); //configuring the dotenv file.
 
 const app = express();
@@ -36,6 +36,8 @@ app.get("/", (req, res) => {
 });
 
 app.post("/employee/create", createEmployee);
+app.get('/employee/getAllEmployees', getAllEmployees)
+app.get('/employee/getAllEmployees/:id', getEmployeeByID)
 // database conenction:
 mongoose
   .connect(process.env.MONGO_URL)
