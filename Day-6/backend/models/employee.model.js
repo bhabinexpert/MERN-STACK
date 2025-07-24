@@ -4,7 +4,10 @@ import { model, Schema } from "mongoose";
 //defined the schema of employee:
 const employeeSchema = new Schema({
     name: String,
-    email: String,
+    email: {
+        type: String,
+        unique: true,
+    },
     designation: String,
     department: String,
     userType: String,
