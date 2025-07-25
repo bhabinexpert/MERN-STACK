@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 8000;
 // //For Logging informations:
 app.use(morgan("dev"));
 app.use(express.json()); // frontend data into
-app.use(cors());
+app.use(cors()); // cors middleware...
 
 //Creating the Route:
 // app.get('/damak',(req, res)=>{
@@ -35,11 +35,21 @@ app.get("/", (req, res) => {
   res.send("GOOD HEALTH");
 });
 
-app.post("/employee/create", createEmployee);
-app.get('/employee/getAllEmployees', getAllEmployees)
-app.get('/employee/getAllEmployees/:id', getEmployeeByID)
-app.put('/employee/update/:id', updateEmployee)
-app.delete('/employee/delete/:id', deleteEmployee)
+
+//employee ko route!
+// app.post("/employee/create", createEmployee);
+// app.get('/employee/getAllEmployees', getAllEmployees)
+// app.get('/employee/getAllEmployees/:id', getEmployeeByID)
+// app.put('/employee/update/:id', updateEmployee)
+// app.delete('/employee/delete/:id', deleteEmployee)
+
+app.post("/employee", createEmployee);
+app.get('/employee', getAllEmployees)
+app.get('/employee/:id', getEmployeeByID)
+app.put('/employee/:id', updateEmployee)
+app.delete('/employee/:id', deleteEmployee)
+
+
 // database conenction:
 mongoose
   .connect(process.env.MONGO_URL)
