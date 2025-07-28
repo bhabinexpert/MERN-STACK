@@ -1,8 +1,8 @@
 import { FaPlus } from "react-icons/fa";
 import Button from "../components/employee/buttons";
-import EmployeeCard from "../components/employee/employeeCard";
+import EmployeeCard from "../components/employee/employeecard.jsx"
 import SearchSelect from "../components/employee/searchSelect";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import EmployeeForm from "../components/employee/employeeForm";
 import axios from "axios";
 
@@ -10,40 +10,45 @@ export default function Employee() {
   const [modelform, setModelForm] = useState(false)
   const [employees, setEmployees] = useState([])
   const [editEmployee, setEditEmployee] = useState(null)
-  const fetchEmployees= async () => {
-    const token = localStorage.getItem("token");
-    try{
-      const res = await axios.get("http://localhost:5000/employees",{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setEmployees(res.data);
-  } catch (err) {
-    console.error("failed to fetch employees",err);
-  }
-};
-useEffect(()=>{
-  fetchEmployees();
-}, []); //dependency array
 
-const handleDelete = async (id) =>{
-  const confirmDelete = window.confirm("Do you want to delete the employee?")
-  if (!confirmDelete) return
-  const token = localStorage.getItem("token")
-  try{
-    await axios.delete(`http ://localhost:5000/employees/${id}`,{
-      header:{
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    setEmployees((preview)=> preview.filter((emp)=>emp.id !==id))
-    alert("Employee deleted Successfully")
-  }catch (error){
-    console.error("Error deleting the employee", error)
-    alert("Something went wrong while deleting the employee")
+
+  const fetchEmployees = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.get("http://localhost:9000/employee", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("The resposne is : ", res)
+
+      setEmployees(res.data);
+    } catch (err) {
+      console.error("failed to fetch employees", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []); //dependency array
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Do you want to delete the employee?")
+    if (!confirmDelete) return
+    const token = localStorage.getItem("token")
+    try {
+      await axios.delete(`http ://localhost:9000/employee/${id}`, {
+        header: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      setEmployees((preview) => preview.filter((emp) => emp.id !== id))
+      alert("Employee deleted Successfully")
+    } catch (error) {
+      console.error("Error deleting the employee", error)
+      alert("Something went wrong while deleting the employee")
+    }
   }
-}
 
   return (
     <>
@@ -55,22 +60,23 @@ const handleDelete = async (id) =>{
           </p>
         </div>
 
-        <Button 
-        onClick ={() => {setModelForm(true)
-          setEditEmployee(null)
-        }}
-        icon={<FaPlus />} 
-        type="button">
-        Add Employee
+        <Button
+          onClick={() => {
+            setModelForm(true)
+            setEditEmployee(null)
+          }}
+          icon={<FaPlus />}
+          type="button">
+          Add Employee
         </Button>
       </div>
-      <SearchSelect/>
-            <EmployeeCard employees = {employees}
-            setEditEmployee= {setEditEmployee} 
-            setModalForm = {setModelForm}
-            handleDelete={handleDelete} />
-            
-         {modelform && (
+      <SearchSelect />
+      <EmployeeCard employees={employees}
+        setEditEmployee={setEditEmployee}
+        setModalForm={setModelForm}
+        handleDelete={handleDelete} />
+
+      {modelform && (
         <div className="fixed inset-0 bg-transparent bg-opacity-10 backdrop-brightness-30 flex items-center justify-center">
           <div className="bg-white rounded-md shadow-xl w-full max-w-md relative">
             <Button
@@ -80,15 +86,15 @@ const handleDelete = async (id) =>{
               ✕
             </Button>
             <EmployeeForm
-             setEmployees = {setEmployees}
-             setModelForm= {setModelForm}
-             editEmployee = {editEmployee}
-             setEditEmployee = {setEditEmployee}
-             />
+              setEmployees={setEmployees}
+              setModelForm={setModelForm}
+              editEmployee={editEmployee}
+              setEditEmployee={setEditEmployee}
+            />
 
           </div>
         </div>
-      )}   
-</>
+      )}
+    </>
   );
 }

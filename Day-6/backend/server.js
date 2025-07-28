@@ -4,7 +4,14 @@ import morgan from "morgan";
 import mongoose from "mongoose"; //mongoose fro db
 import dotenv from "dotenv";
 import cors from "cors";
-import { createEmployee, deleteEmployee, getAllEmployees, getEmployeeByID, updateEmployee } from "./controllers/employee.controller.js";
+import {
+  createEmployee,
+  deleteEmployee,
+  getAllEmployees,
+  getEmployeeByID,
+  updateEmployee,
+} from "./controllers/employee.controller.js";
+import { loginEmployee } from "./controllers/auth.controller.js";
 dotenv.config(); //configuring the dotenv file.
 
 const app = express();
@@ -22,7 +29,11 @@ const PORT = process.env.PORT || 8000;
 // //For Logging informations:
 app.use(morgan("dev"));
 app.use(express.json()); // frontend data into
-app.use(cors()); // cors middleware...
+app.use(
+  cors({
+    option: "*",
+  })
+); // cors middleware...
 
 //Creating the Route:
 // app.get('/damak',(req, res)=>{
@@ -35,7 +46,6 @@ app.get("/", (req, res) => {
   res.send("GOOD HEALTH");
 });
 
-
 //employee ko route!
 // app.post("/employee/create", createEmployee);
 // app.get('/employee/getAllEmployees', getAllEmployees)
@@ -44,11 +54,11 @@ app.get("/", (req, res) => {
 // app.delete('/employee/delete/:id', deleteEmployee)
 
 app.post("/employee", createEmployee);
-app.get('/employee', getAllEmployees)
-app.get('/employee/:id', getEmployeeByID)
-app.put('/employee/:id', updateEmployee)
-app.delete('/employee/:id', deleteEmployee)
-
+app.get("/employee", getAllEmployees);
+app.get("/employee/:id", getEmployeeByID);
+app.put("/employee/:id", updateEmployee);
+app.delete("/employee/:id", deleteEmployee);
+app.post("/auth",loginEmployee)
 
 // database conenction:
 mongoose

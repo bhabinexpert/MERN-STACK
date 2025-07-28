@@ -54,7 +54,7 @@ const handleSubmit = async (e)=>{
     try{
       if(editEmployee){
         const response = await axios.put(
-            `http://localhost:5000/employees/${editEmployee.id}`,
+            `http://localhost:9000/employee/${editEmployee.id}`,
             employeeData,
             {
                 headers:{
@@ -69,7 +69,7 @@ const handleSubmit = async (e)=>{
         setEditEmployee(null)
         }else{
            const response = await axios.post(
-            "http://localhost:5000/employees",
+            "http://localhost:9000/employee",
             employeeData,
             {
                 headers:{
