@@ -6,6 +6,7 @@ export async function createEmployee(req, res) {
     // 1) Extract the data from the frontend
     const { name, email, designation, department, userType, salary, password } =
       req.body;
+      // console.log(req.body)
     // 2) validate the data such as email, password, username and all
     if (
       !name ||

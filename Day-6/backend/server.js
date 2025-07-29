@@ -11,7 +11,9 @@ import {
   getEmployeeByID,
   updateEmployee,
 } from "./controllers/employee.controller.js";
+
 import { loginEmployee } from "./controllers/auth.controller.js";
+import { authorizeToken } from "./middleware/auth.middleware.js";
 dotenv.config(); //configuring the dotenv file.
 
 const app = express();
@@ -34,6 +36,7 @@ app.use(
     option: "*",
   })
 ); // cors middleware...
+// app.use(authorizeToken)
 
 //Creating the Route:
 // app.get('/damak',(req, res)=>{
@@ -53,11 +56,11 @@ app.get("/", (req, res) => {
 // app.put('/employee/update/:id', updateEmployee)
 // app.delete('/employee/delete/:id', deleteEmployee)
 
-app.post("/employee", createEmployee);
-app.get("/employee", getAllEmployees);
+app.post("/employee",authorizeToken, createEmployee);
+app.get("/employee",authorizeToken, getAllEmployees);
 app.get("/employee/:id", getEmployeeByID);
 app.put("/employee/:id", updateEmployee);
-app.delete("/employee/:id", deleteEmployee);
+app.delete("/employee/:id",authorizeToken, deleteEmployee);
 app.post("/auth",loginEmployee)
 
 // database conenction:
