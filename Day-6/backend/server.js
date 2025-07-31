@@ -45,9 +45,9 @@ app.use(
 //     .json({message: "Welcome to damak!!"}) // message
 // })
 
-app.get("/", (req, res) => {
-  res.send("GOOD HEALTH");
-});
+// app.get("/", (req, res) => {
+//   res.send("GOOD HEALTH");
+// });
 
 //employee ko route!
 // app.post("/employee/create", createEmployee);
@@ -65,7 +65,7 @@ app.post("/auth",loginEmployee)
 
 
 //Route to verify Token:
-app.get('/', authorizeToken, ()=>{
+app.get('/', authorizeToken, (req, res)=>{
   res.status(200).json({message: "token verified!"})
 });
 

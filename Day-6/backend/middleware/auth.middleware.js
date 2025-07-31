@@ -18,16 +18,14 @@ export function authorizeToken(req, res, next) {
 
     // if verified then check roles
     // const userType = decoded.userType
-    const {userType} = decoded;
-    if (userType.toLowerCase() === 'employee'){
-        return res.status(400).json({ message : 'Access Denied!'})
-
+    const { userType } = decoded;
+    if (userType.toLowerCase() === "employee") {
+      return res.status(400).json({ message: "Access Denied!" });
     }
     next();
   } catch (error) {
-     // if not verrifed then send error
-     console.log("error while verifying token", error)
-     res.status(400).json({messgae: "Invalid token"})
-
+    // if not verrifed then send error
+    console.log("error while verifying token", error);
+    res.status(400).json({ messgae: "Invalid token" });
   }
 }
