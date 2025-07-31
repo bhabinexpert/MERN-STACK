@@ -63,6 +63,12 @@ app.put("/employee/:id", updateEmployee);
 app.delete("/employee/:id",authorizeToken, deleteEmployee);
 app.post("/auth",loginEmployee)
 
+
+//Route to verify Token:
+app.get('/', authorizeToken, ()=>{
+  res.status(200).json({message: "token verified!"})
+});
+
 // database conenction:
 mongoose
   .connect(process.env.MONGO_URL)
