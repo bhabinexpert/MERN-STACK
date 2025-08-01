@@ -13,7 +13,7 @@ import {
 } from "./controllers/employee.controller.js";
 
 import { loginEmployee } from "./controllers/auth.controller.js";
-import { authorizeToken } from "./middleware/auth.middleware.js";
+import { authorizeToken, checkRole } from "./middleware/auth.middleware.js";
 dotenv.config(); //configuring the dotenv file.
 
 const app = express();
@@ -56,8 +56,8 @@ app.use(
 // app.put('/employee/update/:id', updateEmployee)
 // app.delete('/employee/delete/:id', deleteEmployee)
 
-app.post("/employee",authorizeToken, createEmployee);
-app.get("/employee",authorizeToken, getAllEmployees);
+app.post("/employee",authorizeToken,checkRole, createEmployee);
+app.get("/employee",authorizeToken,checkRole, getAllEmployees);
 app.get("/employee/:id", getEmployeeByID);
 app.put("/employee/:id", updateEmployee);
 app.delete("/employee/:id",authorizeToken, deleteEmployee);

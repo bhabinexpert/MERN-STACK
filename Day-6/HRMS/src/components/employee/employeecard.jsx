@@ -32,7 +32,7 @@ export default function EmployeeCard({ employees, setModalForm, setEditEmployee,
                   Active
                 </span>
               </td>
-              <td>{emp.date}</td>
+              <td>{emp.createdAt?.split("T")[0]}</td>
               <td>{emp.salary}</td>
               <td className="flex justify-center gap-3 text-gray-600">
                 <FaEye className="cursor-pointer hover:text-blue-500" />
@@ -44,7 +44,7 @@ export default function EmployeeCard({ employees, setModalForm, setEditEmployee,
                   className="cursor-pointer hover:text-green-500" />
                 <FaTrash
                   onClick={() => {
-                    handleDelete(emp.id)
+                    handleDelete(emp._id)
 
                   }}
                   className="cursor-pointer hover:text-red-500" />

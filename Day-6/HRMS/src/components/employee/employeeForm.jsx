@@ -1,103 +1,113 @@
 import Button from "./buttons";
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
-export default function EmployeeForm({setEmployess, setModelForm,editEmployee,setEditEmployee}) {
-const [name, setName] = useState("");
-const [email, setEmail] = useState("");
-const [department, setDepartment] = useState("");
-const [designation, setDesignation] = useState("");
-const [userType, setUserType] = useState("");
-const [salary, setSalary] = useState("");
-const [password, setpassword] = useState("");
-const [confirmPassword, setConfirmPassword] = useState("");
-useEffect (()=>{
-  if(editEmployee){
-    setName(editEmployee.name)
-    setEmail(editEmployee.email)
-    setDepartment(editEmployee.department)
-    setDesignation(editEmployee.designation)
-    setUserType(editEmployee.userType)
-    setSalary(editEmployee.salary)
-  }
-},[editEmployee])
+export default function EmployeeForm({
+  setEmployees,
+  setModelForm,
+  editEmployee,
+  setEditEmployee,
+}) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [department, setDepartment] = useState("");
+  const [designation, setDesignation] = useState("");
+  const [userType, setUserType] = useState("");
+  const [salary, setSalary] = useState("");
+  const [password, setpassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  useEffect(() => {
+    if (editEmployee) {
+      setName(editEmployee.name);
+      setEmail(editEmployee.email);
+      setDepartment(editEmployee.department);
+      setDesignation(editEmployee.designation);
+      setUserType(editEmployee.userType);
+      setSalary(editEmployee.salary);
+    }
+  }, [editEmployee]);
 
-const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-        !name ||
-        !email||
-        !department||
-        !designation||
-        !userType||
-        !salary||
-        !password||
-        !confirmPassword
-    ){
-        alert("Please fillout all the fields")
-        return
+      !name ||
+      !email ||
+      !department ||
+      !designation ||
+      !userType ||
+      !salary||
+      !password||
+      !confirmPassword
+    ) {
+      alert("Please fillout all the fields");
+      return;
     }
-    if (password !== confirmPassword){
-        alert("Password doesn't matched")
+    if (password !== confirmPassword) {
+      alert("Password doesn't matched");
+      return;
     }
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-        if (!emailRegex.test(email)){
-            alert("Please enter a valid email address")
-            return
-        }
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
     const employeeData = {
-        name, email, department, designation, userType, salary, password,
-        date: new Date().toISOString().split("T")[0] 
-    }
+      name,
+      email,
+      department,
+      designation,
+      userType,
+      salary,
+      password,
+      date: new Date().toISOString().split("T")[0],
+    };
 
-    const token = localStorage.getItem("token")    
-    try{
-      if(editEmployee){
+    const token = localStorage.getItem("token");
+    try {
+      if (editEmployee) {
         const response = await axios.put(
-            `http://localhost:9000/employee/${editEmployee.id}`,
-            employeeData,
-            {
-                headers:{
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
-         setEmployess((prev)=>
-          prev.map((emp) => (emp.id === editEmployee.id ? response.data : emp))
-        )
-        alert("Employee updated Sucessfully")
-        setEditEmployee(null)
-        }else{
-           const response = await axios.post(
-            "http://localhost:9000/employee",
-            employeeData,
-            {
-                headers:{
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
-         setModelForm(false)
-        if(response.status === 201){
-          alert("Employee added Successfully")
+          `http://localhost:9000/employee/${editEmployee._id}`,
+          employeeData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setEmployees((prev) =>
+          prev.map((emp) => (emp._id === editEmployee.id ? response.data.data : emp))
+        );
+        alert("Employee updated Sucessfully");
+        setEditEmployee(null);
+      } else {
+        const response = await axios.post(
+          "http://localhost:9000/employee",
+          employeeData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setEmployees((prev) => [...prev, response.data.data]);
+        setModelForm(false);
+        if (response.status === 201) {
+          alert("Employee added Successfully");
         }
-            setName("")
-            setEmail("")
-            setDepartment("")
-            setDesignation("")
-            setSalary("")
-            setUserType("")
-            setpassword("")
-            setConfirmPassword("")
-    
-        }
-    }catch (error){
-        console.error("Error adding the employee", error)
-        alert("Something went wrong while adding the employee")
-
+        setName("");
+        setEmail("");
+        setDepartment("");
+        setDesignation("");
+        setSalary("");
+        setUserType("");
+        setpassword("");
+        setConfirmPassword("");
+      }
+    } catch (error) {
+      console.error("Error adding the employee", error);
+      alert("Something went wrong while adding the employee");
     }
-}
-
+  };
 
   return (
     <div className="p-7 sm:p-8">
@@ -118,7 +128,7 @@ const handleSubmit = async (e)=>{
               type="text"
               placeholder=""
               value={name}
-              onChange={(e)=> setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               className="w-full px-2 py-1 border rounded-md focus:ring-1 focus:ring-blue-400 focus:outline-none"
             />
           </div>
@@ -128,7 +138,7 @@ const handleSubmit = async (e)=>{
               type="email"
               placeholder=""
               value={email}
-              onChange={(e)=> setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-2 py-1 border rounded-md focus:ring-1 focus:ring-blue-400 focus:outline-none"
             />
           </div>
@@ -140,9 +150,10 @@ const handleSubmit = async (e)=>{
               Department
             </label>
             <select
-            value={department}
-            onChange={(e)=> setDepartment(e.target.value)}
-             className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm">
+              value={department}
+              onChange={(e) => setDepartment(e.target.value)}
+              className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm"
+            >
               <option value="" disabled>
                 Select
               </option>
@@ -157,9 +168,10 @@ const handleSubmit = async (e)=>{
               Designation
             </label>
             <select
-            value={designation}
-             onChange={(e)=> setDesignation(e.target.value)} 
-            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm">
+              value={designation}
+              onChange={(e) => setDesignation(e.target.value)}
+              className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm"
+            >
               <option value="" disabled>
                 Select
               </option>
@@ -177,9 +189,10 @@ const handleSubmit = async (e)=>{
               User Type
             </label>
             <select
-            value={userType}
-             onChange={(e)=> setUserType(e.target.value)}
-             className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm">
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm"
+            >
               <option value="" disabled>
                 Select
               </option>
@@ -195,7 +208,7 @@ const handleSubmit = async (e)=>{
               type="number"
               placeholder="50000"
               value={salary}
-              onChange={(e)=> setSalary(e.target.value)}
+              onChange={(e) => setSalary(e.target.value)}
               className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm"
             />
           </div>
@@ -208,7 +221,7 @@ const handleSubmit = async (e)=>{
               type="password"
               placeholder="*********"
               value={password}
-              onChange={(e)=> setpassword(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
               className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm"
             />
           </div>
@@ -220,7 +233,7 @@ const handleSubmit = async (e)=>{
               type="password"
               placeholder="********"
               value={confirmPassword}
-              onChange={(e)=> setConfirmPassword(e.target.value)}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm"
             />
           </div>
@@ -228,10 +241,10 @@ const handleSubmit = async (e)=>{
 
         <div className="pt-2">
           <Button type="submit">
-            {editEmployee? "Update Employee": "Add Employee"}
-            </Button>
+            {editEmployee ? "Update Employee" : "Add Employee"}
+          </Button>
         </div>
       </form>
     </div>
   );
-} 
+}

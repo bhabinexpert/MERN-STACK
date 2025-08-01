@@ -41,7 +41,7 @@ export async function loginEmployee(req, res) {
             name: user.name,
             email: user.email,
             role: user.role,
-            user: user.userType
+            userType: user.userType
         },
     })
   } catch (error) {
