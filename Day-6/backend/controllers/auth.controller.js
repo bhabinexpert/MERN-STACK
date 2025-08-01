@@ -12,7 +12,7 @@ export async function loginEmployee(req, res) {
         .json({ message: "Email and Password are required!" });
     }
 
-    const user = await employeeModal.findOne({ email });
+    const user = await employeeModal.findOne({ email: email });
 
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
@@ -45,7 +45,7 @@ export async function loginEmployee(req, res) {
         },
     })
   } catch (error) {
-    console.log("Errror while login:"), error;
-    req.status(500).json({ message: "Internal server error!" });
+    console.log("Errror while login:",error) ;
+    res.status(500).json({ message: "Internal server error!" });
   }
 }
