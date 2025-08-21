@@ -1,6 +1,8 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import axios from 'axios'
+import axios from 'axios';
+import asyncStorage from "@react-native-async-storage/async-storage"
+import {useRouter} from 'expo-router';
 
 
 const login = () => {
@@ -10,9 +12,11 @@ const login = () => {
   })
 
   const [error, setError] = useState("")
+  const router = useRouter();
 
   
   const handleLogin = async ()=>{
+    
     
     if(!formData.email || !formData.password){
       setError("All fields are required!")
@@ -29,7 +33,13 @@ const login = () => {
     console.log(response)
 
     if(response.status === 200){
-      console.log(response.data)
+      // console.log(response.data)
+      const data = response?.data;
+      const token = data?.token;
+      const user = data?.user;
+      await asyncStorage.setItem("token", token);
+      await asyncStorage.setItem("user", JSON.stringify(user));
+      router.replace("/");
       
       // const token = response.data.token;
       // const user = response.data.user;
