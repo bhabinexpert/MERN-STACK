@@ -29,6 +29,24 @@ export default function Employee() {
     fetchEmployees();
   }, []);
 
+   const handleDelete = async (_id) => {
+    // const confirmDelete = window.confirm("Do you want to delete the employee?");
+    // if (!confirmDelete) return;
+    const token = await AsyncStorage.getItem("token");
+    try {
+      await axios.delete(`http://localhost:9000/employee/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setEmployees((preview) => preview.filter((emp) => emp._id !== _id));
+      alert("Employee deleted Successfully");
+    } catch (error) {
+      console.error("Error deleting the employee", error);
+      // alert("Something went wrong while deleting the employee");
+    }
+  };
+
   // Render each employee row
   const renderEmployee = ({ item: emp }) => (
     <View className="flex-row items-center  border-gray-200 shadow-lg shadow-slate-400 py-3 px-2 mt-3 rounded-2xl mb-2">
@@ -64,9 +82,9 @@ export default function Employee() {
           <Icon name="edit" size={20} color="#22c55e" />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
+          onPress={() =>handleDelete(emp._id)
            
-          }}
+          }
         >
           <Icon name="trash" size={20} color="#ef4444" />
         </TouchableOpacity>
@@ -76,7 +94,7 @@ export default function Employee() {
 
   return (
     <View className="mt-3">
-      <Text className="flex-1 font-bold text-gray-700 p-2">Employee Details:</Text>
+      <Text className="flex-1 flex-col font-bold text-gray-700 p-2">Employee Details:</Text>
 
       {/* Table Header */}
       {/* <View className=" flex flex-row bg-gray-100 py-3 px-2 gap-3">
