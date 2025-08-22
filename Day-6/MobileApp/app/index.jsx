@@ -7,11 +7,11 @@ import { useEffect } from "react";
 
 export default function Index() {
   const router = useRouter();
-  const isLoggedIn = false;
+  // const isLoggedIn = false;
 
-  if (!isLoggedIn){
-    return <Redirect href = '/auth/login' />;
-  }
+  // if (!isLoggedIn){
+  //   return <Redirect href = '/auth/login' />;
+  // }
 
   const verifyToken = async()=>{
     const token = await AsyncStorage.getItem("token");
